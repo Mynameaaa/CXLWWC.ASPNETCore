@@ -1,0 +1,6 @@
+@WWC._240711.ASPNETCore.Production_HostAddress = http://localhost:5231
+
+GET {{WWC._240711.ASPNETCore.Production_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

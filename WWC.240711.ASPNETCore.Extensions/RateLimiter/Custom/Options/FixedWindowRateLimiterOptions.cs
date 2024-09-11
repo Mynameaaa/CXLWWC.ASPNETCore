@@ -1,0 +1,17 @@
+﻿using System.Threading.RateLimiting;
+
+namespace WWC._240711.ASPNETCore.Extensions.RateLimiter.Custom.Options
+{
+    public sealed class FixedWindowRateLimiterOptions
+    {
+        public int Window { get; set; }
+
+        public bool AutoReplenishment { get; set; } = true;
+
+        public int PermitLimit { get; set; }
+
+        public QueueProcessingOrder QueueProcessingOrder { get; set; } = QueueProcessingOrder.OldestFirst;
+
+        public int QueueLimit { get; set; }
+    }
+}

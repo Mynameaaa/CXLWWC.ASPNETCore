@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>WWC._240711.ASPNETCore.Production</RootNamespace>
+    <UserSecretsId>b9f2723f-fa96-437f-9ab1-5bd71869c3ff</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WWC.240711.ASPNETCore.Extensions\WWC.240711.ASPNETCore.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>

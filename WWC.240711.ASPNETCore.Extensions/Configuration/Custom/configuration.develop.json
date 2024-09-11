@@ -1,0 +1,65 @@
+{
+  "UseRateLimiter": true,
+  "GlobalRateLimiterOptions": {
+    "UseGlobalRateLimiter": true,
+    "GlobalRateLimiterType": 3
+  },
+  "UseResponseRateLimiterOptions": true,
+  "UseFixedWindowLimiter": true,
+  "FixedWindowRateLimiterOptions": {
+    "Window": 10,
+    "AutoReplenishment": true,
+    "PermitLimit": 20,
+    "QueueProcessingOrder": 0,
+    "QueueLimit": 5
+  },
+  "UseSlidingWindowLimiter": true,
+  "SlidingWindowRateLimiterOptions": {
+    "Window": 30,
+    "AutoReplenishment": true,
+    "PermitLimit": 60,
+    "QueueProcessingOrder": 0,
+    "QueueLimit": 5,
+    "SegmentsPerWindow": 3
+  },
+  "UseTokenBucketLimiter": true,
+  "TokenBucketRateLimiterOptions": {
+    "ReplenishmentPeriod": 10,
+    "AutoReplenishment": true,
+    "PermitLimit": 60,
+    "QueueProcessingOrder": 0,
+    "QueueLimit": 5,
+    "SegmentsPerWindow": 3
+  },
+  "UseConcurrencyLimiter": true,
+  "ConcurrencyLimiterOptions": {
+    "PermitLimit": 20,
+    "QueueProcessingOrder": 0,
+    "QueueLimit": 5
+  },
+  "ResponseRateLimiterOptions": {
+    "RejectionStatusCode": 429
+  },
+  "UseCors": true,
+  "UseDefaultCors": true,
+  "CorsOptions": [
+    {
+      "PolicyName": "SystemCors",
+      "AllowAnyOrigins": true,
+      "WithOrigins": [],
+      "AllowAnyMethods": true,
+      "WithMethods": [],
+      "AllowAnyHeaders": true,
+      "WithHeaders": []
+    },
+    {
+      "PolicyName": "Default",
+      "AllowAnyOrigins": true,
+      "WithOrigins": [],
+      "AllowAnyMethods": true,
+      "WithMethods": [],
+      "AllowAnyHeaders": true,
+      "WithHeaders": []
+    }
+  ]
+}

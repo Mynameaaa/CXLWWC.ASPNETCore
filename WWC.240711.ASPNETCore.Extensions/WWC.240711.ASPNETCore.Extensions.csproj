@@ -1,0 +1,92 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>WWC._240711.ASPNETCore.Extensions</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Folder Include="ApplicationBuilder\源码\" />
+		<Folder Include="Authenticaiton\Custom\" />
+		<Folder Include="Authenticaiton\源码\" />
+		<Folder Include="Authorization\Custom\" />
+		<Folder Include="Authorization\源码\" />
+		<Folder Include="Cache\Custom\" />
+		<Folder Include="Cache\源码\" />
+		<Folder Include="Configuration\Custom\DB\Service\" />
+		<Folder Include="Controller\Custom\" />
+		<Folder Include="Controller\源码\" />
+		<Folder Include="Cors\源码\" />
+		<Folder Include="DependencyInjection\Custom\" />
+		<Folder Include="DependencyInjection\源码\" />
+		<Folder Include="Exception\Custom\" />
+		<Folder Include="Exception\源码\" />
+		<Folder Include="FileServer\Custom\" />
+		<Folder Include="FileServer\源码\" />
+		<Folder Include="Filters\Custom\" />
+		<Folder Include="Filters\源码\" />
+		<Folder Include="Host\Custom\WebHost\" />
+		<Folder Include="Host\Custom\Server\" />
+		<Folder Include="Host\源码\" />
+		<Folder Include="HttpClient\Custom\" />
+		<Folder Include="HttpClient\源码\" />
+		<Folder Include="Http\源码\" />
+		<Folder Include="MinimalAPI\Custom\" />
+		<Folder Include="MinimalAPI\源码\" />
+		<Folder Include="ObjectPool\Custom\" />
+		<Folder Include="ObjectPool\源码\" />
+		<Folder Include="Options\Custom\" />
+		<Folder Include="Options\源码\" />
+		<Folder Include="Program\Custom\" />
+		<Folder Include="Program\源码\" />
+		<Folder Include="RateLimiter\源码\" />
+		<Folder Include="Server\源码\" />
+		<Folder Include="Swagger\源码\" />
+		<Folder Include="WebHost\源码\" />
+		<Folder Include="WebSocket\Custom\" />
+		<Folder Include="WebSocket\源码\" />
+		<Folder Include="HostedService\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+		<PackageReference Include="newtonsoft.json" Version="13.0.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\WWC.240711.ASPNETCore.Infrastructure\WWC.240711.ASPNETCore.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Configuration\Custom\configuration.develop.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Configuration\Custom\web.config">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Logging\appsettings.logging.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>
