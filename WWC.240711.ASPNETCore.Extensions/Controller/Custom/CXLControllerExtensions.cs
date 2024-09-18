@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace WWC._240711.ASPNETCore.Extensions.Controller.Custom
 {
-    public static class ControllerExtensions
+    public static class CXLControllerExtensions
     {
         public static IMvcBuilder AddCXLControllers(this IServiceCollection builder)
         {

@@ -103,17 +103,17 @@ namespace WWC._240711.ASPNETCore.Extensions
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddDefaultCors(this IServiceCollection services)
+        public static IServiceCollection AddCXLDefaultCors(this IServiceCollection services)
         {
             return services.AddPolicyCors("Defualt");
         }
 
-        public static IServiceCollection AddSystemCors(this IServiceCollection services)
+        public static IServiceCollection AddCXLSystemCors(this IServiceCollection services)
         {
             return services.AddPolicyCors("System");
         }
 
-        public static WebApplication UseCorsSetup(this WebApplication app)
+        public static WebApplication UseCXLCors(this WebApplication app)
         {
             var useOptions = app.Services.GetService<IOptions<UseCorsOptions>>();
 

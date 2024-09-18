@@ -2,6 +2,7 @@ using WWC._240711.ASPNETCore.Production.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using WWC._240711.ASPNETCore.Extensions;
 using WWC._240711.ASPNETCore.Extensions.Controller.Custom;
+using WWC._240711.ASPNETCore.Extensions.Swagger;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -18,21 +19,24 @@ builder.Configuration.AddWebConfigFile();
 builder.Services.AddRateLimiterSetup();
 
 //øÁ”Ú
-builder.Services.AddDefaultCors();
+builder.Services.AddCXLDefaultCors();
 
 //º”‘ÿøÿ÷∆∆˜
 builder.Services.AddCXLControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddCXLSwagger();
+
 var app = builder.Build();
+
+app.UseCXLSwagger();
 
 app.UseHttpsRedirection();
 
 app.UseRouting();
 
-//øÁ”Ú
-app.UseCorsSetup();
+app.UseCXLCors();
 
 app.UseRateLimiterSetup();
 

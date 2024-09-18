@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WWC._240711.ASPNETCore.Extensions.Swagger.Custom;
 
 namespace WWC._240711.ASPNETCore.Extensions
 {
     [Route("cxlApp")]
-    [CXLApiExplorerSettings("App", nameof(SwaggerGroup.Order))]
+    [CXLApiExplorerSettings("App", nameof(CXLSwaggerGroup.Order))]
     public class CXLApp : ICXLController
     {
 

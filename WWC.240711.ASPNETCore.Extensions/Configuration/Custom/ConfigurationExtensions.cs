@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WWC._240711.ASPNETCore.Extensions.Configuration.Custom;
 using Microsoft.Extensions.Configuration.Json;
 using WWC._240711.ASPNETCore.Extensions.Configuration.Custom.ConfigurationSource;
+using System.Reflection;
 
 namespace WWC._240711.ASPNETCore.Extensions
 {
@@ -18,7 +19,8 @@ namespace WWC._240711.ASPNETCore.Extensions
 
         public static ConfigurationManager AddDeveJsonFile(this ConfigurationManager configuration)
         {
-            string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), "configuration.develop.json");
+            var basePath = AppContext.BaseDirectory;
+            string jsonFilePath = Path.Combine(basePath, "Configuration\\Custom", "configuration.develop.json");
             if (!File.Exists(jsonFilePath))
             {
                 Console.WriteLine("【configuration.develop.json】 配置文件未能成功加载");
@@ -44,8 +46,9 @@ namespace WWC._240711.ASPNETCore.Extensions
         /// <returns></returns>
         public static ConfigurationManager AddWebConfigFile(this ConfigurationManager configuration, string webconfigFile = "web.config")
         {
+            var basePath = AppContext.BaseDirectory;
             if (!File.Exists(webconfigFile))
-                webconfigFile = Path.Combine(Directory.GetCurrentDirectory(), "web.config");
+                webconfigFile = Path.Combine(basePath, "Configuration\\Custom", "web.config");
             if (!File.Exists(webconfigFile))
             {
                 Console.WriteLine("【web.config】 配置文件未能成功加载");

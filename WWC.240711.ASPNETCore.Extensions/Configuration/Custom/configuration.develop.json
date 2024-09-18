@@ -61,5 +61,9 @@
       "AllowAnyHeaders": true,
       "WithHeaders": []
     }
+  ],
+  "LoadControllersAeesmblies": [
+    "WWC.240711.ASPNETCore.Extensions",
+    "WWC.240711.ASPNETCore.Production"
   ]
 }
