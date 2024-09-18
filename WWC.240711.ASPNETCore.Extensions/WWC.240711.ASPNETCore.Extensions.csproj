@@ -25,7 +25,6 @@
 		<Folder Include="Exception\源码\" />
 		<Folder Include="FileServer\Custom\" />
 		<Folder Include="FileServer\源码\" />
-		<Folder Include="Filters\Custom\" />
 		<Folder Include="Filters\源码\" />
 		<Folder Include="Host\Custom\WebHost\" />
 		<Folder Include="Host\Custom\Server\" />
