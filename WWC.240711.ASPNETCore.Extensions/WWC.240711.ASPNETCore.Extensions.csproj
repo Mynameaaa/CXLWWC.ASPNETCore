@@ -17,7 +17,6 @@
 		<Folder Include="Cache\Custom\" />
 		<Folder Include="Cache\源码\" />
 		<Folder Include="Configuration\Custom\DB\Service\" />
-		<Folder Include="Controller\Custom\" />
 		<Folder Include="Controller\源码\" />
 		<Folder Include="Cors\源码\" />
 		<Folder Include="DependencyInjection\Custom\" />
@@ -53,6 +52,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
 			<PrivateAssets>all</PrivateAssets>

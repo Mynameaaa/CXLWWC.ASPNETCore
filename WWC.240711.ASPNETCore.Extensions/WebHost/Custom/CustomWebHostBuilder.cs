@@ -13,8 +13,8 @@ namespace WWC._240711.ASPNETCore.Extensions.WebHost.Custom
     public class CustomWebHostBuilder
     {
         public IHostBuilder HostBuilder { get; }
-        public ICustomApplicationBuilder ApplicationBuilder { get; }
-        public CustomWebHostBuilder(IHostBuilder hostBuilder, ICustomApplicationBuilder applicationBuilder)
+        public ICXLApplicationBuilder ApplicationBuilder { get; }
+        public CustomWebHostBuilder(IHostBuilder hostBuilder, ICXLApplicationBuilder applicationBuilder)
         {
             HostBuilder = hostBuilder;
             ApplicationBuilder = applicationBuilder;
@@ -28,7 +28,7 @@ namespace WWC._240711.ASPNETCore.Extensions.WebHost.Custom
             return builder;
         }
 
-        public static CustomWebHostBuilder Configure(this CustomWebHostBuilder builder, Action<ICustomApplicationBuilder> configure)
+        public static CustomWebHostBuilder Configure(this CustomWebHostBuilder builder, Action<ICXLApplicationBuilder> configure)
         {
             configure?.Invoke(builder.ApplicationBuilder);
             return builder;
@@ -38,7 +38,7 @@ namespace WWC._240711.ASPNETCore.Extensions.WebHost.Custom
     {
         public static IHostBuilder ConfigureWebHost(this IHostBuilder builder, Action<CustomWebHostBuilder> configure)
         {
-            var webHostBuilder = new CustomWebHostBuilder(builder, new CustomApplicationBuilder());
+            var webHostBuilder = new CustomWebHostBuilder(builder, new CXLApplicationBuilder());
             configure?.Invoke(webHostBuilder);
             builder.ConfigureServices((context, svcs) => svcs.AddSingleton<IHostedService>(provider =>
             {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WWC._240711.ASPNETCore.Extensions.ApplicationBuilder.Custom.App
 {
-    public class CustomApplicationBuilder : ICustomApplicationBuilder
+    public class CXLApplicationBuilder : ICXLApplicationBuilder
     {
         private readonly IList<Func<CustomRequestDelegate, CustomRequestDelegate>> _middlewares = new List<Func<CustomRequestDelegate, CustomRequestDelegate>>();
 
@@ -24,7 +24,7 @@ namespace WWC._240711.ASPNETCore.Extensions.ApplicationBuilder.Custom.App
             return next;
         }
 
-        public ICustomApplicationBuilder Use(Func<CustomRequestDelegate, CustomRequestDelegate> middleware)
+        public ICXLApplicationBuilder Use(Func<CustomRequestDelegate, CustomRequestDelegate> middleware)
         {
             _middlewares.Add(middleware);
             return this;

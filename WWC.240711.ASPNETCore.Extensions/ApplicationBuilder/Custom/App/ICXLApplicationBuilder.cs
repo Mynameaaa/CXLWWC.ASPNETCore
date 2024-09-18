@@ -9,10 +9,10 @@ namespace WWC._240711.ASPNETCore.Extensions.ApplicationBuilder.Custom.App
 {
     public delegate Task CustomRequestDelegate(CustomHttpContext context);
 
-    public interface ICustomApplicationBuilder
+    public interface ICXLApplicationBuilder
     {
         CustomRequestDelegate Build();
-        ICustomApplicationBuilder Use(Func<CustomRequestDelegate, CustomRequestDelegate> middleware);
+        ICXLApplicationBuilder Use(Func<CustomRequestDelegate, CustomRequestDelegate> middleware);
 
     }
 }

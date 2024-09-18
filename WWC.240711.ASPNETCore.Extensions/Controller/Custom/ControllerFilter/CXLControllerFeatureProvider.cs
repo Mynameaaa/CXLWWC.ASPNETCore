@@ -6,9 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using WWC._240711.ASPNETCore.Extensions.Configuration.Custom;
 
-namespace WWC._240711.ASPNETCore.TestAPI
+namespace WWC._240711.ASPNETCore.Extensions
 {
     /// <summary>
     /// 添加额外控制器
@@ -17,19 +16,9 @@ namespace WWC._240711.ASPNETCore.TestAPI
     {
         public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
         {
-            var assembliesList = Appsettings.app<string[]>("LoadControllersAeesmblies");
-            if (assembliesList == null)
-                return;
-
-            List<Assembly> assemblies = new List<Assembly>();
-
-            foreach (var assembly in assembliesList)
-            {
-                assemblies.Add(Assembly.Load(assembly));
-            }
-
             // 查找所有实现了 ICXLController 接口的类
-            var cxlControllerTypes = assemblies.SelectMany(p => p.GetTypes().Where(t => typeof(ICXLController).IsAssignableFrom(t) && !t.IsAbstract && t.IsClass));
+            var cxlControllerTypes = Assembly.GetEntryAssembly().GetTypes()
+                .Where(t => typeof(ICXLController).IsAssignableFrom(t) && !t.IsAbstract && t.IsClass);
 
             foreach (var type in cxlControllerTypes)
             {

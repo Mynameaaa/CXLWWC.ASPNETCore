@@ -1,6 +1,7 @@
 using WWC._240711.ASPNETCore.Production.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using WWC._240711.ASPNETCore.Extensions;
+using WWC._240711.ASPNETCore.Extensions.Controller.Custom;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -20,7 +21,7 @@ builder.Services.AddRateLimiterSetup();
 builder.Services.AddDefaultCors();
 
 //¼ÓÔØ¿ØÖÆÆ÷
-builder.Services.AddControllers();
+builder.Services.AddCXLControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
