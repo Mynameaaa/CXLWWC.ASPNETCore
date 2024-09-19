@@ -65,5 +65,15 @@
   "LoadControllersAeesmblies": [
     "WWC.240711.ASPNETCore.Extensions",
     "WWC.240711.ASPNETCore.Production"
+  ],
+  "ConfigureHttpClientBaseUrl": "http://localhost:15589/api/",
+  "NamedHttpClientOptions": [
+    {
+      "Name": "CXLTest",
+      "BaseUrl": "http://localhost:7899/api",
+      "DefaultHeaders": {
+        "author": "CXL"
+      }
+    }
   ]
 }

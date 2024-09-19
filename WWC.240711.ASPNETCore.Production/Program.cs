@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WWC._240711.ASPNETCore.Extensions;
 using WWC._240711.ASPNETCore.Extensions.Controller.Custom;
 using WWC._240711.ASPNETCore.Extensions.Swagger;
+using WWC._240711.ASPNETCore.Extensions.Options.Custom;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -10,8 +11,8 @@ var builder = WebApplication.CreateBuilder();
 builder.InitConfiguration();
 
 //自定义配置文件
-builder.Configuration.AddDeveJsonFile();
-builder.Configuration.AddWebConfigFile();
+builder.Configuration.AddDefaultDeveJsonFile();
+builder.Configuration.AddDefaultWebConfigFile();
 //未实现
 //builder.Configuration.AddDataBaseConfiguration("");
 
@@ -25,6 +26,10 @@ builder.Services.AddCXLDefaultCors();
 builder.Services.AddCXLControllers();
 
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddCXLHttpClientOptions();
+
+builder.Services.ConfigureCXLNamedHttpClient();
 
 builder.Services.AddCXLSwagger();
 

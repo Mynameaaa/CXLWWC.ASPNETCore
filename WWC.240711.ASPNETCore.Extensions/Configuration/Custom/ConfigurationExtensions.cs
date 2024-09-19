@@ -17,10 +17,15 @@ namespace WWC._240711.ASPNETCore.Extensions
             return builder;
         }
 
-        public static ConfigurationManager AddDeveJsonFile(this ConfigurationManager configuration)
+        public static ConfigurationManager AddDefaultDeveJsonFile(this ConfigurationManager configuration)
+        {
+            return configuration.AddDeveJsonFile("Configuration\\Custom\\configuration.develop.json");
+        }
+
+        public static ConfigurationManager AddDeveJsonFile(this ConfigurationManager configuration, string filePath)
         {
             var basePath = AppContext.BaseDirectory;
-            string jsonFilePath = Path.Combine(basePath, "Configuration\\Custom", "configuration.develop.json");
+            string jsonFilePath = Path.Combine(basePath, filePath);
             if (!File.Exists(jsonFilePath))
             {
                 Console.WriteLine("【configuration.develop.json】 配置文件未能成功加载");
@@ -38,24 +43,29 @@ namespace WWC._240711.ASPNETCore.Extensions
             return configuration;
         }
 
+        public static ConfigurationManager AddDefaultWebConfigFile(this ConfigurationManager configuration)
+        {
+            return configuration.AddWebConfigFile("Configuration\\Custom\\web.config");
+        }
+
         /// <summary>
         /// 对 config 类型的文件提供支持
         /// </summary>
         /// <param name="configuration"></param>
-        /// <param name="webconfigFile"></param>
+        /// <param name="filePath"></param>
         /// <returns></returns>
-        public static ConfigurationManager AddWebConfigFile(this ConfigurationManager configuration, string webconfigFile = "web.config")
+        public static ConfigurationManager AddWebConfigFile(this ConfigurationManager configuration, string filePath)
         {
             var basePath = AppContext.BaseDirectory;
-            if (!File.Exists(webconfigFile))
-                webconfigFile = Path.Combine(basePath, "Configuration\\Custom", "web.config");
-            if (!File.Exists(webconfigFile))
+
+            string webConfigFile = Path.Combine(basePath, filePath);
+            if (!File.Exists(webConfigFile))
             {
                 Console.WriteLine("【web.config】 配置文件未能成功加载");
                 return configuration;
             }
 
-            configuration.Sources.Add(new CXLWebconfigConfigurationSource(webconfigFile));
+            configuration.Sources.Add(new CXLWebconfigConfigurationSource(webConfigFile));
             return configuration;
         }
 

@@ -36,7 +36,6 @@
 		<Folder Include="MinimalAPI\源码\" />
 		<Folder Include="ObjectPool\Custom\" />
 		<Folder Include="ObjectPool\源码\" />
-		<Folder Include="Options\Custom\" />
 		<Folder Include="Options\源码\" />
 		<Folder Include="Program\Custom\" />
 		<Folder Include="Program\源码\" />

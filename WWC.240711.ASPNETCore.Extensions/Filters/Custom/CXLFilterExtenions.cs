@@ -12,7 +12,7 @@ namespace WWC._240711.ASPNETCore.Extensions.Filters.Custom
     {
         public static List<Type> GetCXLFilter()
         {
-            return Assembly.GetExecutingAssembly().GetTypes().Where(p => typeof(IFilterMetadata).IsAssignableFrom(p)).ToList();
+            return Assembly.GetExecutingAssembly().GetTypes().Where(p => typeof(IFilterMetadata).IsAssignableFrom(p)).ToList() ?? new List<Type>();
         }
     }
 }
