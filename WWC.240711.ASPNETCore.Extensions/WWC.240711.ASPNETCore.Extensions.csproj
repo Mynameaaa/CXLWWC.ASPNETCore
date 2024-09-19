@@ -29,7 +29,6 @@
 		<Folder Include="Host\Custom\WebHost\" />
 		<Folder Include="Host\Custom\Server\" />
 		<Folder Include="Host\源码\" />
-		<Folder Include="HttpClient\Custom\" />
 		<Folder Include="HttpClient\源码\" />
 		<Folder Include="Http\源码\" />
 		<Folder Include="MinimalAPI\Custom\" />

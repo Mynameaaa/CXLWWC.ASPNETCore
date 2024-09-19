@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="EventBus\" />
+    <Folder Include="Gateway\" />
   </ItemGroup>
 
   <ItemGroup>

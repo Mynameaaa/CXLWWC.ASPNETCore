@@ -1,11 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WWC._240711.ASPNETCore.Extensions.Configuration.Custom;
-using WWC._240711.ASPNETCore.Extensions.Http.Custom;
+using Microsoft.Extensions.Options;
 
 namespace WWC._240711.ASPNETCore.Extensions.Options.Custom
 {
@@ -29,6 +23,7 @@ namespace WWC._240711.ASPNETCore.Extensions.Options.Custom
         /// <returns></returns>
         public static IServiceCollection ConfigureCXLNamedHttpClient(this IServiceCollection services, string sectionKey = null)
         {
+            services.AddSingleton<IValidateOptions<List<NamedHttpClientOptions>>, NamedHttpClientOptionsValidator>();
             return services.ConfigureOptions<NamedHttpClientConfigureOptions>();
         }
 

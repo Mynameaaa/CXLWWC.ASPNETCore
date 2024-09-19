@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using WWC._240711.ASPNETCore.Extensions.Server.Custom.App;
 using WWC._240711.ASPNETCore.Extensions.Server.Custom.FeatureCollection;
 
-namespace WWC._240711.ASPNETCore.Extensions.Http.Custom.App
+namespace WWC._240711.ASPNETCore.Extensions
 {
     public class CustomHttpContext
     {

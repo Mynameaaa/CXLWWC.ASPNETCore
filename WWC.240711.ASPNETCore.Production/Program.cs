@@ -13,8 +13,6 @@ builder.InitConfiguration();
 //自定义配置文件
 builder.Configuration.AddDefaultDeveJsonFile();
 builder.Configuration.AddDefaultWebConfigFile();
-//未实现
-//builder.Configuration.AddDataBaseConfiguration("");
 
 //限流
 builder.Services.AddRateLimiterSetup();
@@ -22,15 +20,20 @@ builder.Services.AddRateLimiterSetup();
 //跨域
 builder.Services.AddCXLDefaultCors();
 
-//加载控制器
+//加载控制器 配置 Json
 builder.Services.AddCXLControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddCXLHttpClientOptions();
+#region 未实现
 
-builder.Services.ConfigureCXLNamedHttpClient();
+//builder.Services.AddCXLHttpClientOptions();
+//builder.Services.ConfigureCXLNamedHttpClient();
+//builder.Configuration.AddDataBaseConfiguration("");
 
+#endregion
+
+//加载 Swagger
 builder.Services.AddCXLSwagger();
 
 var app = builder.Build();

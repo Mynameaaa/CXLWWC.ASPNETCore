@@ -47,9 +47,17 @@ namespace WWC._240711.ASPNETCore.Extensions.Swagger
 
                 //加载 xml 文件
                 string basePath = AppContext.BaseDirectory;
-                o.IncludeXmlComments(Path.Combine(basePath, "WWC.240711.ASPNETCore.Production.xml"));
+                string apiDocment = Path.Combine(basePath, "WWC.240711.ASPNETCore.Production.xml");
+                if (File.Exists(apiDocment))
+                    o.IncludeXmlComments(apiDocment);
+                else
+                    Console.WriteLine("API xml 文档未能加载");
 
-                o.IncludeXmlComments(Path.Combine(basePath, "WWC.240711.ASPNETCore.Extensions.xml"));
+                string extDocment = Path.Combine(basePath, "WWC.240711.ASPNETCore.Extensions.xml");
+                if (File.Exists(extDocment))
+                    o.IncludeXmlComments(extDocment);
+                else
+                    Console.WriteLine("EXT xml 文档未能加载");
 
                 //操作级别过滤器，每个控制器都会调用一次
                 o.OperationFilter<CXLSecurityOperationFilter>();

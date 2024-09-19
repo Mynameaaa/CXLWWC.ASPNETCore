@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WWC._240711.ASPNETCore.Extensions.Http.Custom
+namespace WWC._240711.ASPNETCore.Extensions
 {
     public class ConfigurationHttpClient
     {
