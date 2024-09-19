@@ -22,7 +22,7 @@ namespace WWC._240711.ASPNETCore.Extensions.Options.Custom
         }
 
         /// <summary>
-        /// 配置 NamedHttpClientOptions
+        /// 配置 NamedHttpClientOptions 
         /// </summary>
         /// <param name="services"></param>
         /// <param name="sectionKey"></param>
