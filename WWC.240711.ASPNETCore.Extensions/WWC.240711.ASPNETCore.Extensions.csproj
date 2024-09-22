@@ -19,7 +19,6 @@
 		<Folder Include="Configuration\Custom\DB\Service\" />
 		<Folder Include="Controller\源码\" />
 		<Folder Include="Cors\源码\" />
-		<Folder Include="DependencyInjection\Custom\" />
 		<Folder Include="DependencyInjection\源码\" />
 		<Folder Include="Exception\Custom\" />
 		<Folder Include="Exception\源码\" />

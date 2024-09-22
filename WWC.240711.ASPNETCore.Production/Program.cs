@@ -1,14 +1,16 @@
-using WWC._240711.ASPNETCore.Production.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using WWC._240711.ASPNETCore.Extensions;
 using WWC._240711.ASPNETCore.Extensions.Controller.Custom;
 using WWC._240711.ASPNETCore.Extensions.Swagger;
-using WWC._240711.ASPNETCore.Extensions.Options.Custom;
+using WWC._240711.ASPNETCore.Production.Controllers;
 
 var builder = WebApplication.CreateBuilder();
 
 //配置加载
 builder.InitConfiguration();
+
+//builder.AddCXLServiceContainer();
 
 //自定义配置文件
 builder.Configuration.AddDefaultDeveJsonFile();

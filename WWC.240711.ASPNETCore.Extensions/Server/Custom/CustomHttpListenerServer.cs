@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using WWC._240711.ASPNETCore.Extensions.ApplicationBuilder.Custom.App;
+﻿using System.Net;
 using WWC._240711.ASPNETCore.Extensions.Server.Custom.App;
 using WWC._240711.ASPNETCore.Extensions.Server.Custom.FeatureCollection;
-using WWC._240711.ASPNETCore.Extensions.Http.Custom.App;
 
-namespace WWC._240711.ASPNETCore.Extensions.Server.Custom
+namespace WWC._240711.ASPNETCore.Extensions
 {
     public class CustomHttpListenerServer : ICustomServer
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WWC._240711.ASPNETCore.Extensions.ApplicationBuilder.Custom.App;
 
-namespace WWC._240711.ASPNETCore.Extensions.Server.Custom
+namespace WWC._240711.ASPNETCore.Extensions
 {
     public interface ICustomServer
     {
