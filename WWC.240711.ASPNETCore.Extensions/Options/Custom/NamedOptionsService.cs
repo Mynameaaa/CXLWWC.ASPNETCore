@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using WWC._240711.ASPNETCore.Extensions.Configuration.Custom;
+using WWC._240711.ASPNETCore.Infrastructure;
 
 namespace WWC._240711.ASPNETCore.Extensions
 {

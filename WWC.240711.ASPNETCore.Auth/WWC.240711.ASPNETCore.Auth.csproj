@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>WWC._240711.ASPNETCore.Auth</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CSRedisCore" Version="3.8.803" />
+		<PackageReference Include="Microsoft.Aspnetcore.Authentication.Jwtbearer" Version="6.0.19" />
+		<PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.8" />
+		<PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\WWC.240711.ASPNETCore.Infrastructure\WWC.240711.ASPNETCore.Infrastructure.csproj" />
+	</ItemGroup>
+
+</Project>
