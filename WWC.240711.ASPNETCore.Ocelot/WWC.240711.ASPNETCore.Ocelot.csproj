@@ -16,4 +16,8 @@
 		<ProjectReference Include="..\WWC.240711.ASPNETCore.Auth\WWC.240711.ASPNETCore.Auth.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\" />
+	</ItemGroup>
+
 </Project>

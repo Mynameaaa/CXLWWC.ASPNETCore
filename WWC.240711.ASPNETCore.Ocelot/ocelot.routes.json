@@ -19,7 +19,7 @@
         "Type": "RoundRobin"
       },
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "CXLScheme",
+        "AuthenticationProviderKey": "CXL",
         "AllowedScopes": []
       }
     }

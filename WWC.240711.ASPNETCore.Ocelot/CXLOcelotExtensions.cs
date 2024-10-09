@@ -18,6 +18,20 @@ namespace WWC._240711.ASPNETCore.Ocelot
             return services;
         }
 
+        public static IConfigurationBuilder AddCXLOcelotConfigure(this ConfigurationManager configuration)
+        {
+            var con = configuration.AddJsonFile("ocelot.global.json", false, true);
+            if (Appsettings.app<bool>("UseConsul"))
+            {
+                con.AddJsonFile("ocelot.consul.json");
+            }
+            con.AddJsonFile("ocelot.routes.json");
+            con.AddJsonFile("ocelot.auth.json");
+            con.AddJsonFile("ocelot.swagger.json");
+
+            return con;
+        }
+
         public async static Task<IApplicationBuilder> UseCXLOcelot(this WebApplication app)
         {
             return await app.UseOcelot();

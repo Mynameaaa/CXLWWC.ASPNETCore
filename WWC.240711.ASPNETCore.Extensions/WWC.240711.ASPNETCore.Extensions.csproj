@@ -20,7 +20,6 @@
 		<Folder Include="Controller\源码\" />
 		<Folder Include="Cors\源码\" />
 		<Folder Include="DependencyInjection\源码\" />
-		<Folder Include="Exception\Custom\" />
 		<Folder Include="Exception\源码\" />
 		<Folder Include="FileServer\Custom\" />
 		<Folder Include="FileServer\源码\" />
