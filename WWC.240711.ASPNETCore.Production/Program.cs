@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder();
 //配置加载
 builder.InitConfiguration();
 
+builder.Host.UseContentRoot
 //builder.AddCXLServiceContainer();
 
 //自定义配置文件

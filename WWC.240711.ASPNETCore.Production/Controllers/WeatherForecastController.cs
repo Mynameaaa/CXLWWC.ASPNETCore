@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WWC._240711.ASPNETCore.Extensions.Filters.Custom;
 
 namespace WWC._240711.ASPNETCore.Production.Controllers
 {
@@ -22,6 +23,8 @@ namespace WWC._240711.ASPNETCore.Production.Controllers
 
         //[Authorize]
         [HttpGet(Name = "GetWeatherForecast")]
+        //[TypeFilter<CXLExceptionFilter>]//不走依赖注入直接实例化
+        //[ServiceFilter<CXLExceptionFilter>]//走依赖注入从容器中获取 Filter 实例
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
