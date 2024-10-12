@@ -2,63 +2,74 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using WWC._240711.ASPNETCore.Extensions;
 using WWC._240711.ASPNETCore.Extensions.Controller.Custom;
+using WWC._240711.ASPNETCore.Extensions.Program.Custom;
 using WWC._240711.ASPNETCore.Extensions.Swagger;
 using WWC._240711.ASPNETCore.Production.Controllers;
 
-var builder = WebApplication.CreateBuilder();
+#region Program
 
-//配置加载
-builder.InitConfiguration();
+//var builder = WebApplication.CreateBuilder();
 
-builder.Host.UseContentRoot
-//builder.AddCXLServiceContainer();
+////配置加载
+//builder.InitConfiguration();
 
-//自定义配置文件
-builder.Configuration.AddDefaultDeveJsonFile();
-builder.Configuration.AddDefaultWebConfigFile();
+////builder.AddCXLServiceContainer();
 
-//限流
-builder.Services.AddRateLimiterSetup();
+////自定义配置文件
+//builder.Configuration.AddDefaultDeveJsonFile();
+//builder.Configuration.AddDefaultWebConfigFile();
 
-//跨域
-builder.Services.AddCXLDefaultCors();
+////限流
+//builder.Services.AddRateLimiterSetup();
 
-//加载控制器 配置 Json
-builder.Services.AddCXLControllers();
+////跨域
+//builder.Services.AddCXLDefaultCors();
 
-builder.Services.AddEndpointsApiExplorer();
+////加载控制器 配置 Json
+//builder.Services.AddCXLControllers();
 
-#region 未实现
+//builder.Services.AddEndpointsApiExplorer();
 
-//builder.Services.AddCXLHttpClientOptions();
-//builder.Services.ConfigureCXLNamedHttpClient();
-//builder.Configuration.AddDataBaseConfiguration("");
+//#region 未实现
+
+////builder.Services.AddCXLHttpClientOptions();
+////builder.Services.ConfigureCXLNamedHttpClient();
+////builder.Configuration.AddDataBaseConfiguration("");
+
+//#endregion
+
+////加载 Swagger
+//builder.Services.AddCXLSwagger();
+
+//var app = builder.Build();
+
+//app.UseCXLSwagger();
+
+//app.UseHttpsRedirection();
+
+//app.UseRouting();
+
+//app.UseCXLCors();
+
+//app.UseRateLimiterSetup();
+
+//app.UseAuthorization();
+
+//app.MapControllers();
+
+//app.MapGet("/test", ([FromServices] ILogger<WeatherForecastController> logger) =>
+//{
+//    EventId eventId = new EventId(666, "MyEventId");
+//    logger.LogWarning("Very Good");
+//});
+
+//await app.RunAsync(); 
 
 #endregion
 
-//加载 Swagger
-builder.Services.AddCXLSwagger();
-
-var app = builder.Build();
-
-app.UseCXLSwagger();
-
-app.UseHttpsRedirection();
-
-app.UseRouting();
-
-app.UseCXLCors();
-
-app.UseRateLimiterSetup();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.MapGet("/test", ([FromServices] ILogger<WeatherForecastController> logger) =>
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
 {
-    EventId eventId = new EventId(666, "MyEventId");
-    logger.LogWarning("Very Good");
+    Args = args
 });
 
-await app.RunAsync();
+await CXLExtensionsProgram.MainAsync(builder);

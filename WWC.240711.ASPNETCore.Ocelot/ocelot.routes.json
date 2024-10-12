@@ -6,11 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 15969
-        },
-        {
-          "Host": "localhost",
-          "Port": 15970
+          "Port": 12369
         }
       ],
       "UpstreamPathTemplate": "/{everything}",

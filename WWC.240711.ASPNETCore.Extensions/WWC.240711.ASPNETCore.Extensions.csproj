@@ -28,12 +28,10 @@
 		<Folder Include="Host\源码\" />
 		<Folder Include="HttpClient\源码\" />
 		<Folder Include="Http\源码\" />
-		<Folder Include="MinimalAPI\Custom\" />
 		<Folder Include="MinimalAPI\源码\" />
 		<Folder Include="ObjectPool\Custom\" />
 		<Folder Include="ObjectPool\源码\" />
 		<Folder Include="Options\源码\" />
-		<Folder Include="Program\Custom\" />
 		<Folder Include="Program\源码\" />
 		<Folder Include="RateLimiter\源码\" />
 		<Folder Include="Server\源码\" />
@@ -42,6 +40,7 @@
 		<Folder Include="WebSocket\Custom\" />
 		<Folder Include="WebSocket\源码\" />
 		<Folder Include="HostedService\" />
+		<Folder Include="ModelBinder\" />
 	</ItemGroup>
 
 	<ItemGroup>

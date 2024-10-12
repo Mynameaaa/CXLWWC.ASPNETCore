@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace WWC._240711.ASPNETCore.Extensions.Exception.Custom
 {
+    /// <summary>
+    /// 404 异常返回异常页
+    /// </summary>
     public class CXL404StatusCodeMiddleware
     {
         private readonly RequestDelegate _next;
@@ -62,4 +65,5 @@ namespace WWC._240711.ASPNETCore.Extensions.Exception.Custom
                 await context.Response.WriteAsync(htmlResponse);
             }
         }
+    }
 }

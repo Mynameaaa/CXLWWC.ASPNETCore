@@ -42,7 +42,7 @@ namespace WWC._240711.ASPNETCore.Extensions
             foreach (var configure in configures)
             {
                 if (string.IsNullOrWhiteSpace(configure.Name) || string.IsNullOrWhiteSpace(configure.Name))
-                    throw new Exception("HttpClient 配置的 Name 或者 BaseUrl 不能为空");
+                    throw new System.Exception("HttpClient 配置的 Name 或者 BaseUrl 不能为空");
 
                 services.AddHttpClient<HttpClient>(configure.Name, client =>
                 {

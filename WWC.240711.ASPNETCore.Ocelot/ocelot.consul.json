@@ -8,7 +8,7 @@
       "ServiceName": "GoodOrderService",
       "DownstreamHostAndPorts": [],
       "LoadBalancerOptions": {
-        //ÂÖÑ¯²ßÂÔ
+        //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
         "Type": "RoundRobin"
         //"Type": "LeastConnection"
       }
@@ -21,9 +21,9 @@
       "ServiceName": "GoodOrderService",
       "DownstreamHostAndPorts": [],
       "LoadBalancerOptions": {
-        //ÂÖÑ¯²ßÂÔ
+        //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
         "Type": "RoundRobin"
-        //×îÉÙÁ´½Ó²ßÂÔ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½
         //"Type": "LeastConnection"
       }
     }

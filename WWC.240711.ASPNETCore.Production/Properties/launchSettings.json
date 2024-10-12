@@ -14,7 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "CXLdoc",
-      "applicationUrl": "http://localhost:5231;https://localhost:7889",
+      "applicationUrl": "http://localhost:12369",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         //添加 IHostingStartup 服务

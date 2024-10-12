@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WWC._240711.ASPNETCore.Infrastructure;
 
 namespace WWC._240711.ASPNETCore.Extensions.FileServer.Custom
 {
@@ -76,6 +77,30 @@ namespace WWC._240711.ASPNETCore.Extensions.FileServer.Custom
                 DefaultFileNames = files ?? ["default.html", "index.html"],
                 RequestPath = requestPath,
             });
+        }
+
+        /// <summary>
+        /// 通过配置启用静态文件配置
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UseCXLConfigureStaticFiles(this WebApplication app)
+        {
+            string rootPath = app.Environment.ContentRootPath;
+            var configures = Appsettings.app<List<StaticConfigureOptions>>("StaticConfigureOptions");
+            if (configures == null || !configures.Any())
+                return app;
+
+            foreach (var configre in configures)
+            {
+                return app.UseStaticFiles(new StaticFileOptions()
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(rootPath, configre.DirectoryName)),
+                    RequestPath = configre.RequestPath ?? "",
+                });
+            }
+
+            return app;
         }
 
     }

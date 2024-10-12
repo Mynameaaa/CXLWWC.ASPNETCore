@@ -1,6 +1,6 @@
 {
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:8788" // Ocelot µØÖ·
+    "BaseUrl": "http://localhost:8788" // Ocelot ï¿½ï¿½Ö·
     //"ServiceDiscoveryProvider": {
     //  "Type": "Consul",
     //  "Host": "localhost",
