@@ -1,0 +1,6 @@
+@WWC._270711.ASPNETCore.AuthPlatform_HostAddress = http://localhost:5232
+
+GET {{WWC._270711.ASPNETCore.AuthPlatform_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -22,12 +22,15 @@ namespace WWC._240711.ASPNETCore.Extensions.FileServer.Custom
         /// <param name="directoryName"></param>
         /// <param name="requestPath"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseCXLStaticFile(this WebApplication app, string directoryName, string requestPath = "")
+        public static IApplicationBuilder UseCXLStaticFile(this WebApplication app, string directoryName = "wwwroot", string requestPath = "")
         {
             string rootDirectory = Path.Combine(app.Environment.ContentRootPath, directoryName);
 
             if (!Directory.Exists(rootDirectory))
                 Directory.CreateDirectory(rootDirectory);
+
+            if (!requestPath.StartsWith("/") && !string.IsNullOrWhiteSpace(directoryName))
+                requestPath = "/" + requestPath;
 
             return app.UseStaticFiles(new StaticFileOptions()
             {
@@ -43,12 +46,15 @@ namespace WWC._240711.ASPNETCore.Extensions.FileServer.Custom
         /// <param name="directoryName"></param>
         /// <param name="requestPath"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseCXLDirectoryBrowser(this WebApplication app, string directoryName, string requestPath = "")
+        public static IApplicationBuilder UseCXLDirectoryBrowser(this WebApplication app, string directoryName = "FileServer", string requestPath = "")
         {
             string rootDirectory = Path.Combine(app.Environment.ContentRootPath, directoryName);
 
             if (!Directory.Exists(rootDirectory))
                 Directory.CreateDirectory(rootDirectory);
+
+            if (!requestPath.StartsWith("/"))
+                requestPath = "/" + requestPath;
 
             return app.UseDirectoryBrowser(new DirectoryBrowserOptions()
             {
@@ -65,12 +71,15 @@ namespace WWC._240711.ASPNETCore.Extensions.FileServer.Custom
         /// <param name="requestPath"></param>
         /// <param name="files"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseCXLDefaultFiles(this WebApplication app, string directoryName, string requestPath = "", params string[] files)
+        public static IApplicationBuilder UseCXLDefaultFiles(this WebApplication app, string directoryName = "wwwroot", string requestPath = "", params string[]? files)
         {
             string rootDirectory = Path.Combine(app.Environment.ContentRootPath, directoryName);
 
             if (!Directory.Exists(rootDirectory))
                 Directory.CreateDirectory(rootDirectory);
+
+            if (requestPath.StartsWith("/") && requestPath.Length == 1)
+                requestPath = "";
 
             return app.UseDefaultFiles(new DefaultFilesOptions()
             {
@@ -93,6 +102,9 @@ namespace WWC._240711.ASPNETCore.Extensions.FileServer.Custom
 
             foreach (var configre in configures)
             {
+                if (configre.RequestPath.StartsWith("/") && configre.RequestPath.Length == 1)
+                    configre.RequestPath = "";
+
                 return app.UseStaticFiles(new StaticFileOptions()
                 {
                     FileProvider = new PhysicalFileProvider(Path.Combine(rootPath, configre.DirectoryName)),

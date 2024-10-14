@@ -38,6 +38,30 @@ public class TokenService : ITokenService
     }
 
     /// <summary>
+    /// 获取 Token 对
+    /// </summary>
+    /// <param name="privateKeyPath"></param>
+    /// <param name="tokenMinute"></param>
+    /// <param name="dataModel"></param>
+    /// <returns></returns>
+    public TokenModel GenerateJwtToken(byte[] privateKey, Dictionary<string, string> dataModel = null)
+    {
+        var accessToken = _tokenHelper.GenerateJwtToken(privateKey, dataModel);
+        var refreshToken = _tokenHelper.GenerateRefreshToken();
+        _refreshTokens.Add(refreshToken, new RefreshTokenCacheModel()
+        {
+            Expiration = DateTime.Now.AddMinutes(Appsettings.app<int?>("TokenParameter:RefreshTokenExpiration") ?? 2880),
+            UserID = dataModel["userId"],
+        });
+
+        return new TokenModel()
+        {
+            access_token = accessToken,
+            refresh_token = refreshToken,
+        };
+    }
+
+    /// <summary>
     /// 获取用户信息
     /// </summary>
     /// <param name="userId"></param>

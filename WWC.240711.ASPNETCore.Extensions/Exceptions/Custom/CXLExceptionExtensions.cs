@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WWC._240711.ASPNETCore.Extensions.Exception.Custom
+namespace WWC._240711.ASPNETCore.Extensions.Exceptions.Custom
 {
     public static class CXLExceptionExtensions
     {

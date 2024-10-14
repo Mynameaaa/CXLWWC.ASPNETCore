@@ -4,10 +4,14 @@ using System.Text.RegularExpressions;
 
 namespace WWC._240711.ASPNETCore.Auth;
 
-public class KeyHelper
+public class KeyHelper : IKeyHelper
 {
-    // 生成公私钥对并保存到文件
-    // 生成公私钥对并保存到文件
+
+    /// <summary>
+    /// 生成公私钥对并保存到文件
+    /// </summary>
+    /// <param name="privateKeyPath"></param>
+    /// <param name="publicKeyPath"></param>
     public void GenerateKeys(string privateKeyPath, string publicKeyPath)
     {
         // 检查并创建私钥文件夹
@@ -30,13 +34,15 @@ public class KeyHelper
             var privateKey = rsa.ExportPkcs8PrivateKey();
             var publicKey = rsa.ExportSubjectPublicKeyInfo();
 
-            if (!File.Exists(privateKeyPath))
+            bool isGenerate = false;
+            if (!File.Exists(privateKeyPath) || !File.Exists(publicKeyPath))
             {
+                isGenerate = true;
                 // 将私钥转换为 PEM 格式并写入文件
                 File.WriteAllText(privateKeyPath, ExportPrivateKeyToPEM(privateKey));
             }
 
-            if (!File.Exists(publicKeyPath))
+            if (isGenerate)
             {
                 // 将公钥转换为 PEM 格式并写入文件
                 File.WriteAllText(publicKeyPath, ExportPublicKeyToPEM(publicKey));
@@ -44,7 +50,11 @@ public class KeyHelper
         }
     }
 
-    // 将私钥转换为 PEM 格式（PKCS#8）
+    /// <summary>
+    /// 将私钥转换为 PEM 格式（PKCS#8）
+    /// </summary>
+    /// <param name="privateKey"></param>
+    /// <returns></returns>
     private string ExportPrivateKeyToPEM(byte[] privateKey)
     {
         StringBuilder builder = new StringBuilder();
@@ -64,7 +74,11 @@ public class KeyHelper
         return builder.ToString();
     }
 
-    // 加载公钥（SubjectPublicKeyInfo 格式）
+    /// <summary>
+    /// 加载公钥（SubjectPublicKeyInfo 格式）
+    /// </summary>
+    /// <param name="publicKeyPath"></param>
+    /// <returns></returns>
     public RSA LoadPublicKeyFromPEM(string publicKeyPath)
     {
         // 读取 PEM 文件内容
@@ -83,11 +97,38 @@ public class KeyHelper
         return rsa;
     }
 
-    // 加载私钥（PKCS#8 格式）
+    /// <summary>
+    /// 加载私钥（PKCS#8 格式）
+    /// </summary>
+    /// <param name="privateKeyPath"></param>
+    /// <returns></returns>
     public async Task<RSA> LoadPrivateKeyFromPEM(string privateKeyPath)
     {
         // 读取 PEM 文件内容
         string privateKeyPEM = await File.ReadAllTextAsync(privateKeyPath);
+
+        // 使用正则表达式删除 "-----BEGIN PRIVATE KEY-----" 和 "-----END PRIVATE KEY-----" 部分
+        string base64Key = Regex.Replace(privateKeyPEM, "-----.*?-----", string.Empty).Trim();
+
+        // 将 Base64 字符串转换为字节数组
+        byte[] privateKeyBytes = Convert.FromBase64String(base64Key);
+
+        // 创建 RSA 实例并导入私钥（PKCS#8 格式）
+        RSA rsa = RSA.Create();
+        rsa.ImportPkcs8PrivateKey(privateKeyBytes, out _);
+
+        return rsa;
+    }
+
+    /// <summary>
+    /// 加载私钥（PKCS#8 格式）
+    /// </summary>
+    /// <param name="privateKeyValue"></param>
+    /// <returns></returns>
+    public RSA LoadPrivateKeyFromPEM(byte[] privateKeyValue)
+    {
+        // 读取 PEM 文件内容
+        string privateKeyPEM = Encoding.UTF8.GetString(privateKeyValue);
 
         // 使用正则表达式删除 "-----BEGIN PRIVATE KEY-----" 和 "-----END PRIVATE KEY-----" 部分
         string base64Key = Regex.Replace(privateKeyPEM, "-----.*?-----", string.Empty).Trim();

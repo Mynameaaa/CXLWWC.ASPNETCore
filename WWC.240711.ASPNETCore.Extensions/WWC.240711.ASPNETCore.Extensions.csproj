@@ -7,6 +7,11 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);1591</NoWarn>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="Exception\**" />
+	  <EmbeddedResource Remove="Exception\**" />
+	  <None Remove="Exception\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="ApplicationBuilder\源码\" />
@@ -20,7 +25,6 @@
 		<Folder Include="Controller\源码\" />
 		<Folder Include="Cors\源码\" />
 		<Folder Include="DependencyInjection\源码\" />
-		<Folder Include="Exception\源码\" />
 		<Folder Include="FileServer\源码\" />
 		<Folder Include="Filters\源码\" />
 		<Folder Include="Host\Custom\WebHost\" />
