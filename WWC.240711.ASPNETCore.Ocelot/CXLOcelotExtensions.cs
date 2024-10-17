@@ -11,7 +11,7 @@ namespace WWC._240711.ASPNETCore.Ocelot
         {
             var addOcelot = services.AddOcelot();
 
-            if (Appsettings.app<bool>("UseConsul"))
+            if (Appsettings.app<bool>("UseOcelotConsul"))
             {
                 addOcelot.AddConsul();
             }
@@ -21,13 +21,14 @@ namespace WWC._240711.ASPNETCore.Ocelot
         public static IConfigurationBuilder AddCXLOcelotConfigure(this ConfigurationManager configuration)
         {
             var con = configuration.AddJsonFile("ocelot.global.json", false, true);
-            if (Appsettings.app<bool>("UseConsul"))
+            if (Appsettings.app<bool>("UseOcelotConsul"))
             {
                 con.AddJsonFile("ocelot.consul.json");
             }
-            con.AddJsonFile("ocelot.routes.json");
-            con.AddJsonFile("ocelot.auth.json");
-            con.AddJsonFile("ocelot.swagger.json");
+            //con.AddJsonFile("ocelot.routes.json", false, true);
+            con.AddJsonFile("ocelot.json", false, true);
+            //con.AddJsonFile("ocelot.auth.json", false, true);
+            //con.AddJsonFile("ocelot.swagger.json", false, true);
 
             return con;
         }

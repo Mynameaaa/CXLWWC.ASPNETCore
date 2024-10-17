@@ -1,0 +1,37 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{apiName}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 12369
+        }
+      ],
+      "UpstreamPathTemplate": "/servicep/{apiName}",
+      "UpstreamHttpMethod": [ "GET", "Post" ],
+      //"LoadBalancerOptions": {
+      //  "Type": "RoundRobin"
+      //},
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "CXL"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/auth/{everything}",
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": ""
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 14670
+        }
+      ]
+    }
+  ]
+}

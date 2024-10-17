@@ -6,7 +6,7 @@ namespace WWC._240711.ASPNETCore.Auth;
 
 public class CXLAuthenticationSchemeOptions : AuthenticationSchemeOptions
 {
-    public string SchemeName = "CXL";
+    public const string SchemeName = "CXL";
 
     public string DisplayName { get; set; }
 

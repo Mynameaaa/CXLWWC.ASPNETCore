@@ -5,7 +5,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text.Encodings.Web;
+using WWC._240711.ASPNETCore.Auth.Cache;
 using WWC._240711.ASPNETCore.Infrastructure;
 
 namespace WWC._240711.ASPNETCore.Auth;
@@ -14,6 +16,9 @@ namespace WWC._240711.ASPNETCore.Auth;
 public class CXLAuthenticationHandler : AuthenticationHandler<CXLAuthenticationSchemeOptions>
 {
 
+    /// <summary>
+    /// Token 相关服务
+    /// </summary>
     private readonly ITokenService _tokenService;
 
     /// <summary>
@@ -31,7 +36,9 @@ public class CXLAuthenticationHandler : AuthenticationHandler<CXLAuthenticationS
     /// </summary>
     private readonly UrlEncoder _urlEncoder;
 
-
+    /// <summary>
+    /// 当前时钟
+    /// </summary>
     private readonly ISystemClock _clock;
 
     /// <summary>
@@ -48,6 +55,10 @@ public class CXLAuthenticationHandler : AuthenticationHandler<CXLAuthenticationS
         _tokenService = tokenService;
     }
 
+    /// <summary>
+    /// 鉴权处理
+    /// </summary>
+    /// <returns></returns>
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
         AuthenticateResult result = default(AuthenticateResult);
@@ -83,7 +94,10 @@ public class CXLAuthenticationHandler : AuthenticationHandler<CXLAuthenticationS
 
                 if (accessTokenPrincipal == null)
                 {
-                    throw new SecurityTokenExpiredException();
+                    if (useRefreshToken)
+                        return await this.HandlerUseRefreshTokenAuth();
+                    else
+                        throw new SecurityTokenExpiredException("无效的 Token 信息");
                 }
 
                 // 构建 AuthenticationTicket
@@ -189,14 +203,47 @@ public class CXLAuthenticationHandler : AuthenticationHandler<CXLAuthenticationS
         return (true, token);
     }
 
-    private ClaimsPrincipal ValidateToken(string Token)
+    /// <summary>
+    /// 验证 Token
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    private ClaimsPrincipal ValidateToken(string token)
     {
+        SecurityKey privateKey;
         var tokenHandler = new JwtSecurityTokenHandler();
+
+        if (Appsettings.app<bool?>("UsePubPriKey") ?? false)
+        {
+            string privateKeyPath = "http://localhost:14670/api/auth/OAuth/privateKey";
+
+            var _httpClient = new HttpClient();
+            byte[] privateFileBytes;
+            var cache = new FileCacheService();
+
+            if (cache.HasKey(CacheConstantKeys.TokenPrivateKey) && cache.HasKey(CacheConstantKeys.TokenPrivateKey))
+            {
+                privateFileBytes = cache.GetFile(CacheConstantKeys.TokenPrivateKey);
+            }
+            else
+            {
+                HttpResponseMessage privateKeyResponse = _httpClient.GetAsync(privateKeyPath).Result;
+                privateFileBytes = privateKeyResponse.Content.ReadAsByteArrayAsync().Result;
+                cache.CacheFile(CacheConstantKeys.TokenPrivateKey, privateFileBytes);
+            }
+
+            KeyHelper keys = new KeyHelper();
+            privateKey = new RsaSecurityKey(keys.LoadPrivateKeyFromPEM(privateFileBytes));
+        }
+        else
+        {
+            privateKey = Options.SecretKey;
+        }
 
         var validationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = base.Options.SecretKey, // 设置签名密钥
+            IssuerSigningKey = privateKey, // 设置签名密钥
             ValidateIssuer = base.Options.ValidateIssuer,  // 验证发行者
             ValidateAudience = base.Options.ValidateAudience,  // 验证观众
             ValidAudience = base.Options.Audience,
@@ -205,9 +252,71 @@ public class CXLAuthenticationHandler : AuthenticationHandler<CXLAuthenticationS
             ClockSkew = TimeSpan.FromSeconds(30) // 时钟偏移
         };
 
-        SecurityToken validatedToken;
-        var principal = tokenHandler.ValidateToken(Token, validationParameters, out validatedToken);
-        return principal;
+        try
+        {
+            // 验证 token 并返回 ClaimsPrincipal
+            SecurityToken validatedToken;
+            var principal = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
+
+            base.Context.Request.Headers["Authorization"] = token;
+            // 处理额外的 Claims
+            HandleRemoteClaims(principal);
+
+            return principal;
+        }
+        catch (SecurityTokenExpiredException ex)
+        {
+            // 处理 token 过期异常
+            throw new UnauthorizedAccessException("Token 过期", ex);
+        }
+        catch (SecurityTokenInvalidSignatureException ex)
+        {
+            if (ex is SecurityTokenSignatureKeyNotFoundException)
+            {
+                // 处理签名密钥未找到的异常
+                throw new UnauthorizedAccessException("签名验证失败。未提供安全密钥。", ex);
+            }
+            // 处理签名验证失败异常
+            throw new UnauthorizedAccessException("令牌签名无效。", ex);
+        }
+        catch (SecurityTokenInvalidIssuerException ex)
+        {
+            // 处理发行者无效异常
+            throw new UnauthorizedAccessException("Issuer 无效。", ex);
+        }
+        catch (SecurityTokenInvalidAudienceException ex)
+        {
+            // 处理观众无效异常
+            throw new UnauthorizedAccessException("Audience 无效。", ex);
+        }
+        catch (Exception ex)
+        {
+            // 捕获所有其他未预料的异常
+            throw new UnauthorizedAccessException("令牌验证失败。", ex);
+        }
+    }
+
+    /// <summary>
+    /// 设置远程 Claims 信息
+    /// </summary>
+    /// <param name="claimsPrincipal"></param>
+    private void HandleRemoteClaims(ClaimsPrincipal? claimsPrincipal)
+    {
+        if (claimsPrincipal is null)
+            return;
+
+        if (!Appsettings.app<bool>("UseRemoteAuth"))
+            return;
+
+        var remoteMapping = Appsettings.app<List<RemoteAuthOptions>>("RemoteAuthOptions");
+        if (remoteMapping is null || !remoteMapping.Any())
+            return;
+
+        foreach (var mapping in remoteMapping)
+        {
+            this.Context.Request.Headers[mapping.HeaderKey] = claimsPrincipal.Claims.FirstOrDefault(p => p.Type.Equals(mapping.ClaimKey, StringComparison.OrdinalIgnoreCase))?.Value ?? "";
+        }
+
     }
 
     protected override Task HandleForbiddenAsync(AuthenticationProperties properties)

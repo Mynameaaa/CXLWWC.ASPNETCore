@@ -37,4 +37,12 @@ public interface IKeyHelper
     /// <param name="privateKeyValue"></param>
     /// <returns></returns>
     RSA LoadPrivateKeyFromPEM(byte[] privateKeyValue);
+
+    /// <summary>
+    /// 加载公钥（PKCS#8 格式）
+    /// </summary>
+    /// <param name="publicKeyValue"></param>
+    /// <returns></returns>
+    RSA LoadPublicKeyFromPEM(byte[] publicKeyValue);
+
 }

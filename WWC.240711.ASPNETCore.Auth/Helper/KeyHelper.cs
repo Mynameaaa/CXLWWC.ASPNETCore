@@ -142,4 +142,27 @@ public class KeyHelper : IKeyHelper
 
         return rsa;
     }
+
+    /// <summary>
+    /// 加载公钥（PKCS#8 格式）
+    /// </summary>
+    /// <param name="publicKeyValue"></param>
+    /// <returns></returns>
+    public RSA LoadPublicKeyFromPEM(byte[] publicKeyValue)
+    {
+        // 读取 PEM 文件内容
+        string publicKeyPEM = Encoding.UTF8.GetString(publicKeyValue);
+
+        // 使用正则表达式删除 "-----BEGIN PUBLIC KEY-----" 和 "-----END PUBLIC KEY-----" 部分
+        string base64Key = Regex.Replace(publicKeyPEM, "-----.*?-----", string.Empty).Trim();
+
+        // 将 Base64 字符串转换为字节数组
+        byte[] publicKeyBytes = Convert.FromBase64String(base64Key);
+
+        // 创建 RSA 实例并导入公钥（SubjectPublicKeyInfo 格式）
+        RSA rsa = RSA.Create();
+        rsa.ImportSubjectPublicKeyInfo(publicKeyBytes, out _);
+
+        return rsa;
+    }
 }

@@ -15,7 +15,7 @@ public class CXLAuthorizationHandler : AuthorizationHandler<CXLPermissionRequire
         {
             return Task.CompletedTask;
         }
-
+        
         var today = DateTime.Today;
         var dateOfBirth = Convert.ToDateTime(dateOfBirthClaim.Value);
         int calculatedAge = today.Year - dateOfBirth.Year;

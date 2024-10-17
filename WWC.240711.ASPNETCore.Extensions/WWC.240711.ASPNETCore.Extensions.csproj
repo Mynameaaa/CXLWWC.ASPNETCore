@@ -45,6 +45,8 @@
 		<Folder Include="WebSocket\源码\" />
 		<Folder Include="HostedService\" />
 		<Folder Include="ModelBinder\" />
+		<Folder Include="Request\" />
+		<Folder Include="Response\" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,31 +1,31 @@
 {
-  "Routes": [
-    {
-      "DownstreamPathTemplate": "/api/good/{id}",
-      "UpstreamPathTemplate": "/good/{id}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "DownstreamScheme": "http",
-      "ServiceName": "GoodOrderService",
-      "DownstreamHostAndPorts": [],
-      "LoadBalancerOptions": {
-        //��ѯ����
-        "Type": "RoundRobin"
-        //"Type": "LeastConnection"
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/api/order/{id}",
-      "UpstreamPathTemplate": "/order/{id}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "DownstreamScheme": "http",
-      "ServiceName": "GoodOrderService",
-      "DownstreamHostAndPorts": [],
-      "LoadBalancerOptions": {
-        //��ѯ����
-        "Type": "RoundRobin"
-        //�������Ӳ���
-        //"Type": "LeastConnection"
-      }
-    }
-  ]
+  //"Routes": [
+  //  {
+  //    "DownstreamPathTemplate": "/api/good/{id}",
+  //    "UpstreamPathTemplate": "/good/{id}",
+  //    "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+  //    "DownstreamScheme": "http",
+  //    "ServiceName": "GoodOrderService",
+  //    "DownstreamHostAndPorts": [],
+  //    "LoadBalancerOptions": {
+  //      //��ѯ����
+  //      "Type": "RoundRobin"
+  //      //"Type": "LeastConnection"
+  //    }
+  //  },
+  //  {
+  //    "DownstreamPathTemplate": "/api/order/{id}",
+  //    "UpstreamPathTemplate": "/order/{id}",
+  //    "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+  //    "DownstreamScheme": "http",
+  //    "ServiceName": "GoodOrderService",
+  //    "DownstreamHostAndPorts": [],
+  //    "LoadBalancerOptions": {
+  //      //��ѯ����
+  //      "Type": "RoundRobin"
+  //      //�������Ӳ���
+  //      //"Type": "LeastConnection"
+  //    }
+  //  }
+  //]
 }

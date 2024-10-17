@@ -1,16 +1,19 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "/auth/{Action}",
-      "DownstreamPathTemplate": "/api/auth/{Action}",
+      "UpstreamPathTemplate": "/auth/{everything}",
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamScheme": "http",
       "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": null
+      },
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8788
+          "Port": 14670
         }
-      ],
-      "Priority": 10
+      ]
     }
   ]
 }

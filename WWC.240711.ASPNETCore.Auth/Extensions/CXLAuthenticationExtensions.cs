@@ -3,7 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.Net.Http;
 using System.Text;
+using WWC._240711.ASPNETCore.Auth.Cache;
 using WWC._240711.ASPNETCore.Infrastructure;
 
 namespace WWC._240711.ASPNETCore.Auth;
@@ -14,7 +16,10 @@ public static class CXLAuthenticationExtensions
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        var builder = services.AddAuthentication();
+        var builder = services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = CXLAuthenticationSchemeOptions.SchemeName;
+        });
         if (Appsettings.app<bool?>("UsePubPriKey") ?? false)
         {
             builder.AddDefaultSchemeTwoKey();
@@ -30,14 +35,32 @@ public static class CXLAuthenticationExtensions
 
     private static AuthenticationBuilder AddDefaultSchemeTwoKey(this AuthenticationBuilder builder)
     {
-        string privateKeyPath = Path.Combine(Directory.GetCurrentDirectory(), Appsettings.app("TokenKey:PrivateKeyPath") ?? "Keys/private.pem");
-        string publicKeyPath = Path.Combine(Directory.GetCurrentDirectory(), Appsettings.app("TokenKey:PublicKeyPath") ?? "Keys/public.pem");
+        //string privateKeyPath = "http://localhost:14670/api/auth/OAuth/privateKey";
+        string publicKeyPath = "http://localhost:14670/api/auth/OAuth/publicKey";
+
+        var _httpClient = new HttpClient();
+        //byte[] privateFileBytes;
+        byte[] publicFileBytes;
+        var cache = new FileCacheService();
+
+        if (cache.HasKey(CacheConstantKeys.TokenPrivateKey) && cache.HasKey(CacheConstantKeys.TokenPublicKey))
+        {
+            //privateFileBytes = cache.GetFile(CacheConstantKeys.TokenPrivateKey);
+            publicFileBytes = cache.GetFile(CacheConstantKeys.TokenPublicKey);
+        }
+        else
+        {
+            //HttpResponseMessage privateKeyResponse = _httpClient.GetAsync(privateKeyPath).Result;
+            //privateFileBytes = privateKeyResponse.Content.ReadAsByteArrayAsync().Result;
+            HttpResponseMessage publicKeyResponse = _httpClient.GetAsync(publicKeyPath).Result;
+            publicFileBytes = publicKeyResponse.Content.ReadAsByteArrayAsync().Result;
+            cache.CacheFile(CacheConstantKeys.TokenPublicKey, publicFileBytes);
+        }
 
         KeyHelper keys = new KeyHelper();
-        keys.GenerateKeys(privateKeyPath, publicKeyPath);
 
         // 使用生成的公钥来验证 JWT
-        var publicKey = keys.LoadPublicKeyFromPEM(publicKeyPath);
+        var publicKey = keys.LoadPublicKeyFromPEM(publicFileBytes);
         string Issuer = Appsettings.app("JWT:Issuer") ?? "DefualtIssuer";
         string Audience = Appsettings.app("JWT:Audience") ?? "DefualtAudience";
 
@@ -54,7 +77,9 @@ public static class CXLAuthenticationExtensions
             RedirectUrl = "https://google.com",
         };
 
-        return builder.AddScheme<CXLAuthenticationSchemeOptions, CXLAuthenticationHandler>(CXLConstantScheme.DefaultScheme, options => options = defaultOptions);
+        _httpClient.Dispose();
+        return builder
+            .AddScheme<CXLAuthenticationSchemeOptions, CXLAuthenticationHandler>(CXLAuthenticationSchemeOptions.SchemeName, options => options = defaultOptions);
     }
 
     private static AuthenticationBuilder AddDefaultScheme(this AuthenticationBuilder builder)
@@ -76,7 +101,7 @@ public static class CXLAuthenticationExtensions
             DefualtChallageMessage = "无效的 Token 或未找到合适的 Token",
             RedirectUrl = "https://google.com",
         };
-        return builder.AddScheme<CXLAuthenticationSchemeOptions, CXLAuthenticationHandler>(CXLConstantScheme.DefaultScheme, options => options = defaultOptions);
+        return builder.AddScheme<CXLAuthenticationSchemeOptions, CXLAuthenticationHandler>(CXLAuthenticationSchemeOptions.SchemeName, options => options = defaultOptions);
     }
 
     private static IServiceCollection AddCXLAuthenticationCore(this IServiceCollection services)

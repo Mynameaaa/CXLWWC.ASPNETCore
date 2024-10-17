@@ -12,7 +12,7 @@
     "http": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "CXLdoc",
       "applicationUrl": "http://localhost:12369",
       "environmentVariables": {
@@ -23,7 +23,7 @@
     },
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "CXLdoc",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

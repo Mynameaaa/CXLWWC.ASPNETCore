@@ -1,4 +1,5 @@
 using WWC._240711.ASPNETCore.Auth.Extensions;
+using WWC._240711.ASPNETCore.AuthPlatform.Cache;
 using WWC._240711.ASPNETCore.AuthPlatform.Servcies;
 using WWC._240711.ASPNETCore.Extensions;
 using WWC._240711.ASPNETCore.Infrastructure;
@@ -13,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IDownLoadFileService, DownLoadFileService>();
+builder.Services.AddTransient<IFileCacheService, FileCacheService>();
 
 builder.Services.AddAuthService();
 

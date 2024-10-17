@@ -89,6 +89,8 @@ public class TokenHelper : ITokenHelper
         {
             Subject = new ClaimsIdentity(claims.ToArray()),
             Expires = DateTime.UtcNow.AddMinutes(Appsettings.app<int?>("TokenParameter:AccessTokenExpiration") ?? 30),  // 令牌过期时间
+            Audience = Appsettings.app<string>("Jwt:Audience"), // 设置听众
+            Issuer = Appsettings.app<string>("Jwt:Issuer"),     // 设置发布人
             SigningCredentials = new SigningCredentials(privateKey, SecurityAlgorithms.RsaSha256)  // 使用 RSA-SHA256 签名
         };
 

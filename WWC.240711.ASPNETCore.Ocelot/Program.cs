@@ -4,6 +4,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WWC._240711.ASPNETCore.Auth;
+using WWC._240711.ASPNETCore.Auth.Extensions;
 using WWC._240711.ASPNETCore.Infrastructure;
 using WWC._240711.ASPNETCore.Ocelot;
 
@@ -14,6 +15,7 @@ builder.Services.AddSingleton(new Appsettings(builder.Configuration));
 builder.Services.AddControllers();
 
 //builder.Services.LoadProjectAssemblies();
+builder.Services.AddAuthService();
 
 builder.Services.AddCXLOcelot();
 
@@ -40,28 +42,6 @@ app.UseStaticFiles(new StaticFileOptions()
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.MapGet("/api/auth/getToken",async ([FromServices] ITokenService _tokenService) =>
-{
-    TokenHelper tokenHelper = new TokenHelper();
-    string privateKeyPath = Path.Combine(Directory.GetCurrentDirectory(), Appsettings.app("TokenKey:PrivateKeyPath") ?? "Keys/public.pem");
-
-    var tokenModel = new TokenDataModel()
-    {
-        Role = "Admin,User,BackAdmin",
-        UserId = 666,
-        Username = "ZWJJ"
-    };
-
-    Dictionary<string, string> dataModels = new Dictionary<string, string>
-    {
-        { "Name", tokenModel.Username },
-        { "ID", tokenModel.UserId.ToString() },
-        { "Role", tokenModel.Role }
-    };
-
-    return await _tokenService.GenerateJwtToken(privateKeyPath, dataModels);
-});
 
 app.UseMiddleware<UserContextMiddleware>();
 
