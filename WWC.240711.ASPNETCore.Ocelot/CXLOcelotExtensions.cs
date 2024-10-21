@@ -36,10 +36,12 @@ namespace WWC._240711.ASPNETCore.Ocelot
 
         public async static Task<IApplicationBuilder> UseCXLOcelot(this WebApplication app)
         {
-            return await app.UseOcelot((builder, config) =>
-            {
-                
-            });
+            return await app.UseOcelot();
+
+            //return await app.UseOcelot((builder, config) =>
+            //{
+
+            //});
         }
 
     }

@@ -34,19 +34,11 @@ builder.Services.AddCXLAuthentication();
 
 var app = builder.Build();
 
-app.UseStaticFiles();
-
-app.UseStaticFiles(new StaticFileOptions()
-{
-    FileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory()),
-    RequestPath = ""
-});
-
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseMiddleware<CXLOcelotResponseHandlerMiddleware>();
+//app.UseMiddleware<CXLOcelotResponseHandlerMiddleware>();
 
 app.MapControllers();
 

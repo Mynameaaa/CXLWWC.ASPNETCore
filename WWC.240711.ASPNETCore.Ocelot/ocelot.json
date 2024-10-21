@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/{apiName}",
+      "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,7 +9,7 @@
           "Port": 12369
         }
       ],
-      "UpstreamPathTemplate": "/servicep/{apiName}",
+      "UpstreamPathTemplate": "/servicep/{everything}",
       "UpstreamHttpMethod": [ "GET", "Post" ],
       //"LoadBalancerOptions": {
       //  "Type": "RoundRobin"
