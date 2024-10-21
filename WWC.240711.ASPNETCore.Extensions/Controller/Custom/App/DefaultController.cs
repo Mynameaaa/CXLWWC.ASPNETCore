@@ -9,6 +9,13 @@ namespace WWC._240711.ASPNETCore.Extensions
     [CXLRoute("api/[controller]")]
     public class DefaultController : ICXLController
     {
+        private readonly IHttpContextAccessor _contextAccessor;
+
+        public DefaultController(IHttpContextAccessor contextAccessor)
+        {
+            _contextAccessor = contextAccessor;
+        }
+
         /// <summary>
         /// 获取默认
         /// </summary>
@@ -16,6 +23,7 @@ namespace WWC._240711.ASPNETCore.Extensions
         [HttpGet]
         public string Get()
         {
+            var ctx = _contextAccessor.HttpContext;
             return "Get";
         }
 

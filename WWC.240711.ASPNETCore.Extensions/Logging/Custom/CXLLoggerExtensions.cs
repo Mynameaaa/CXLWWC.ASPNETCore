@@ -12,7 +12,7 @@ using WWC._240711.ASPNETCore.Extensions.Logging.Custom.Db;
 
 namespace WWC._240711.ASPNETCore.Extensions.Logging.Custom
 {
-    public static class ServiceExtensions
+    public static class CXLLoggerExtensions
     {
         public static ILoggingBuilder AddCustomDatabaseProvider<T>(this WebApplicationBuilder builder, Action<DbLoggeroOptions> action = null) where T : LoggerDbContext, new()
         {

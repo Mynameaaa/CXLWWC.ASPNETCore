@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
@@ -8,16 +8,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Ocelot.Provider.Consul" Version="22.0.0" />
-		<PackageReference Include="Ocelot" Version="23.3.3" />
+		<PackageReference Include="Ocelot.Provider.Consul" Version="21.0.0" />
+		<PackageReference Include="Ocelot" Version="21.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\WWC.240711.ASPNETCore.Auth\WWC.240711.ASPNETCore.Auth.csproj" />
+		<ProjectReference Include="..\WWC.240711.ASPNETCore.Extensions\WWC.240711.ASPNETCore.Extensions.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="wwwroot\" />
+	  <Folder Include="Extensions\" />
 	</ItemGroup>
 
 	<ItemGroup>

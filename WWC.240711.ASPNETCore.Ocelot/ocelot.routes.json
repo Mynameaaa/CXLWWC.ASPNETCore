@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/Default",
+      "DownstreamPathTemplate": "/api/{ac}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,7 +9,7 @@
           "Port": 12369
         }
       ],
-      "UpstreamPathTemplate": "/api/Default",
+      "UpstreamPathTemplate": "/{ac}",
       "UpstreamHttpMethod": [ "GET", "Post" ],
       //"LoadBalancerOptions": {
       //  "Type": "RoundRobin"
@@ -19,22 +19,22 @@
       },
       "RequestIdKey": "Auth"
     }
-    //,
-    //{
-    //  "UpstreamPathTemplate": "/auth/{everything}",
-    //  "DownstreamPathTemplate": "/api/auth/{everything}",
-    //  "DownstreamScheme": "http",
-    //  "UpstreamHttpMethod": [ "GET", "POST" ],
-    //  "AuthenticationOptions": {
-    //    "AuthenticationProviderKey": null
-    //  },
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 14670
-    //    }
-    //  ],
-    //  "RequestIdKey": "ServiceProduction"
-    //}
+    ,
+    {
+      "UpstreamPathTemplate": "/auth/{everything}",
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": null
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 14670
+        }
+      ],
+      "RequestIdKey": "ServiceProduction"
+    }
   ]
 }

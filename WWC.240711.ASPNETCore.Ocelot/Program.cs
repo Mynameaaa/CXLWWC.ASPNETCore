@@ -5,10 +5,13 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WWC._240711.ASPNETCore.Auth;
 using WWC._240711.ASPNETCore.Auth.Extensions;
+using WWC._240711.ASPNETCore.Extensions;
 using WWC._240711.ASPNETCore.Infrastructure;
 using WWC._240711.ASPNETCore.Ocelot;
+using WWC._240711.ASPNETCore.Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.AddCXLSerilog();
 
 builder.Services.AddSingleton(new Appsettings(builder.Configuration));
 
@@ -43,7 +46,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseMiddleware<UserContextMiddleware>();
+app.UseMiddleware<CXLOcelotResponseHandlerMiddleware>();
 
 app.MapControllers();
 

@@ -36,6 +36,8 @@ namespace WWC._240711.ASPNETCore.Extensions.Program.Custom
 
             builder.Services.AddEndpointsApiExplorer();
 
+            builder.Services.AddHttpContextAccessor();
+
             #region 未实现
 
             //builder.Services.AddCXLHttpClientOptions();
