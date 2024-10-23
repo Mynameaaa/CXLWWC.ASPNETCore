@@ -25,29 +25,26 @@ public class CXLOcelotResponseHandlerMiddleware : OcelotMiddleware
     /// <returns></returns>
     public async Task InvokeAsync(HttpContext context)
     {
-        // 记录当前请求信息
-        var downstreamRequest = context.Items["DownstreamRequest"] as DownstreamRequest;
-
         await _next.Invoke(context);
+
+        // 记录当前请求信息
+        using DownstreamResponse downstreamResponse = context.Items.DownstreamResponse();
 
         var statusCode = context.Response.StatusCode;
 
-        //switch (statusCode)
-        //{
-        //    case 404:
-        //        context.Response.Redirect("/not-found"); // 重定向到指定页面
-        //        context.Response.StatusCode = StatusCodes.Status302Found; // 设置状态码为 302
-        //        return;
-        //    default:
-        //        break;
-        //}
-
-        if (downstreamRequest != null)
+        if (downstreamResponse != null)
         {
-            var downstreamUrl = downstreamRequest.ToUri(); // 获取下游请求的完整 URL
-            _logger.LogInformation($"下游地址：{downstreamUrl}");
+
         }
 
+        // 获取转发的下游服务地址
+        var downstreamUrl = context.Items["DownstreamRequest"]?.ToString();
+        if (!string.IsNullOrEmpty(downstreamUrl))
+        {
+            // 记录下游服务地址
+            Console.WriteLine($"下游请求地址: {downstreamUrl}");
+            // 这里可以将日志记录到文件或其他地方
+        }
 
     }
 

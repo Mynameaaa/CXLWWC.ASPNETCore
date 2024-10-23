@@ -44,7 +44,7 @@ namespace WWC._240711.ASPNETCore.Extensions.Exceptions.Custom
         /// </summary>
         /// <param name="app"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseCXLExceptionHandler(this WebApplication app)
+        public static IApplicationBuilder UseCXLExceptionHandlerReturnPage(this WebApplication app)
         {
             return app.UseExceptionHandler(happ =>
             {
@@ -61,7 +61,7 @@ namespace WWC._240711.ASPNETCore.Extensions.Exceptions.Custom
 
                     if (exceptionHandlerPathFeature?.Error is NotImplementedException)
                     {
-                        message = "俺未实现";
+                        message = "方法暂未实现";
                         statusCode = StatusCodes.Status501NotImplemented;
                     }
 

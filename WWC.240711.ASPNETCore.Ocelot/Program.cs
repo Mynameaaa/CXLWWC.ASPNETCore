@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using Ocelot.Errors.Middleware;
 using System.Text;
 using WWC._240711.ASPNETCore.Auth;
 using WWC._240711.ASPNETCore.Auth.Extensions;
 using WWC._240711.ASPNETCore.Extensions;
+using WWC._240711.ASPNETCore.Extensions.Exceptions.Custom;
+using WWC._240711.ASPNETCore.Extensions.Logging.Custom;
 using WWC._240711.ASPNETCore.Infrastructure;
 using WWC._240711.ASPNETCore.Ocelot;
 using WWC._240711.ASPNETCore.Ocelot.Middleware;
@@ -26,19 +29,18 @@ builder.Configuration.AddCXLOcelotConfigure();
 
 builder.Services.AddCXLAuthorizationService();
 
-#region JWT 鉴权
-
 builder.Services.AddCXLAuthentication();
 
-#endregion
-
 var app = builder.Build();
+
+//异常日志
+app.UseMiddleware<CXLOcelotLastExecptionHandlerMiddleware>();
+//正常日志
+app.UseMiddleware<CXLOcelotLoggerRequestMiddleware>();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-//app.UseMiddleware<CXLOcelotResponseHandlerMiddleware>();
 
 app.MapControllers();
 

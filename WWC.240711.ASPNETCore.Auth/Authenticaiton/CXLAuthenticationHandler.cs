@@ -266,8 +266,7 @@ public class CXLAuthenticationHandler : AuthenticationHandler<CXLAuthenticationS
         }
         catch (SecurityTokenExpiredException ex)
         {
-            // 处理 token 过期异常
-            throw new UnauthorizedAccessException("Token 过期", ex);
+            return null;
         }
         catch (SecurityTokenInvalidSignatureException ex)
         {
