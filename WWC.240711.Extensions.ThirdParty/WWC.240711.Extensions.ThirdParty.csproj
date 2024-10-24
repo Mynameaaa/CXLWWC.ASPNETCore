@@ -8,7 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="HostedService\ConsulUnRegisterHostedService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="EventBus\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="HostedService\ConsulUnRegisterHostedService.cs" />
   </ItemGroup>
 
   <ItemGroup>

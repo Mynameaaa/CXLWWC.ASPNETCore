@@ -27,6 +27,7 @@
 		<Folder Include="DependencyInjection\源码\" />
 		<Folder Include="FileServer\源码\" />
 		<Folder Include="Filters\源码\" />
+		<Folder Include="HostedService\" />
 		<Folder Include="Host\Custom\WebHost\" />
 		<Folder Include="Host\Custom\Server\" />
 		<Folder Include="Host\源码\" />
@@ -43,7 +44,6 @@
 		<Folder Include="WebHost\源码\" />
 		<Folder Include="WebSocket\Custom\" />
 		<Folder Include="WebSocket\源码\" />
-		<Folder Include="HostedService\" />
 		<Folder Include="ModelBinder\" />
 		<Folder Include="Request\" />
 		<Folder Include="Response\" />

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>WWC._240711.Extensions.ThirdPartyCache</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="CacheKeys\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CSRedisCore" Version="3.8.803" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WWC.240711.ASPNETCore.Extensions\WWC.240711.ASPNETCore.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>
