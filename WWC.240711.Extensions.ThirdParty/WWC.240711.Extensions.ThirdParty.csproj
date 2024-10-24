@@ -12,7 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Consul" Version="1.7.14.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WWC.240711.ASPNETCore.Extensions\WWC.240711.ASPNETCore.Extensions.csproj" />
+    <ProjectReference Include="..\WWC.240711.ASPNETCore.Infrastructure\WWC.240711.ASPNETCore.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
